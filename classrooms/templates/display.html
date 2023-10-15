@@ -1,0 +1,51 @@
+{% extends 'home.html' %}
+
+{% block title %}{{title}} List{% endblock %}
+
+{% block content %}
+<div>
+    {% if teachers %}
+        <table class="w-full whitespace-nowrap">
+            <thead class="h-8 w-full text-left text-gray-400 bg-gray-800">
+                <tr>
+                    <th class="pl-4">Teacher Name</th>
+                    <th>Email</th>
+                    <th>Subject</th>
+                    <th>Qualification</th>
+                </tr>
+            </thead>
+            <tbody class="w-full leading-none text-gray-200 bg-gray-600 sm:text-sm md:text-md">
+                {% for teacher in teachers %}
+                    <tr class="h-14 w-full border-t-8 border-t border-gray-700">
+                        <td class="pl-4">{{teacher.name|capfirst}}</td>
+                        <td>{{teacher.email}}</td>
+                        <td>{{teacher.subject|capfirst}}</td>
+                        <td>{{teacher.qualifications|upper}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% elif students %}
+        <table class="w-full whitespace-nowrap">
+            <thead class="h-8 w-full text-left text-gray-400 bg-gray-800">
+                <tr>
+                    <th class="pl-4">Student Name</th>
+                    <th>Email</th>
+                    <th>Parent Name</th>
+                    <th>Parent Email</th>
+                </tr>
+            </thead>
+            <tbody class="w-full leading-none text-white bg-gray-600 sm:text-sm md:text-md">
+                {% for students in students %}
+                    <tr class="h-14 w-full border-t-8 border-t border-gray-700">
+                        <td class="pl-4">{{students.name|capfirst}}</td>
+                        <td>{{students.email}}</td>
+                        <td>{{students.parent_name|capfirst}}</td>
+                        <td>{{students.parent_email|capfirst}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+{% endblock %}

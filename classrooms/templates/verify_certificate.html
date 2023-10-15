@@ -1,0 +1,32 @@
+{% extends 'home.html' %}
+
+{% block title %}Verify certificate{% endblock %}
+
+{% block content %}
+<div class="p-4 text-gray-900">
+    <h1 class="text-xl font-bold text-center mb-2 text-white underline">
+        Verify a certificate
+    </h1>
+    {% if messages %}
+        <div class="text-center text-2xl">
+            <ul>
+                {% for message in messages %}
+                    <li class="{% if message.tags == 'success' %}text-green-500{% elif message.tags == 'error' %}text-red-500{% endif %}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <div class=" flex justify-center">
+        <form method="post" class="w-1/2 sm:w-1/3 space-y-8">
+            {% csrf_token %}
+            {{ form.certificate_token }}
+            <button
+                type="submit"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-normal py-1 px-4 rounded"
+            >
+                Verify
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
