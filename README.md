@@ -1,1 +1,1 @@
-# edu-connect
+# edu-connect web app
