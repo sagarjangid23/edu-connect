@@ -1,12 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from fpdf import FPDF
-from django.http import FileResponse, HttpResponse
+from django.http import HttpResponse
 from django.contrib import messages
 import jwt
 from django.conf import settings
 from datetime import timedelta, datetime
 from django.utils import timezone
-import io
 from .forms import GenerateCertificateForm, VerifyCertificateForm
 from .models import Teacher, Student, Result, Certificate
 
@@ -31,6 +30,25 @@ def display_students(request):
         "students": students,
     }
     return render(request, "display.html", context)
+
+
+def corresponding_students(request, teacher_id):
+    students = Teacher.objects.filter(id=teacher_id).first().students.all()
+
+    if students:
+        return render(request, "corresponding_students.html", {"students": students})
+    else:
+        messages.error(request, "No corresponding students for this teacher.")
+        return redirect('teachers')
+
+
+def corresponding_teachers(request, student_id):
+    teachers = Student.objects.filter(id=student_id).first().teachers.all()
+    
+    if teachers:
+        return render(request, "corresponding_teachers.html", {"teachers": teachers})
+    else:
+        return redirect('students')
 
 
 def generate_pdf(data):
@@ -131,7 +149,7 @@ def generate_certificate(request):
                         bytes(pdf.output()), content_type="application/pdf"
                     )
                     response["Content-Disposition"] = f'filename="{filename}"'
-                    
+
                     return response
                 except jwt.ExpiredSignatureError:
                     messages.error(request, "Certificate has expired.")

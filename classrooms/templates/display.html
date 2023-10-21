@@ -3,24 +3,34 @@
 {% block title %}{{title}} List{% endblock %}
 
 {% block content %}
-<div>
+<div class="m-4 p-4 pt-1 border border-gray-500 rounded-lg bg-gray-700">
+    <h2 class="text-center text-xl p-1 underline">{{title|capfirst}} List</h2>
+    {% if messages %}
+        <div class="text-center text-red-500 py-1">
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
     {% if teachers %}
         <table class="w-full whitespace-nowrap">
-            <thead class="h-8 w-full text-left text-gray-400 bg-gray-800">
+            <thead class="h-8 w-full text-left text-gray-100 bg-gray-800">
                 <tr>
                     <th class="pl-4">Teacher Name</th>
-                    <th>Email</th>
                     <th>Subject</th>
-                    <th>Qualification</th>
+                    <th>Corresponding students</th>
                 </tr>
             </thead>
             <tbody class="w-full leading-none text-gray-200 bg-gray-600 sm:text-sm md:text-md">
                 {% for teacher in teachers %}
                     <tr class="h-14 w-full border-t-8 border-t border-gray-700">
                         <td class="pl-4">{{teacher.name|capfirst}}</td>
-                        <td>{{teacher.email}}</td>
                         <td>{{teacher.subject|capfirst}}</td>
-                        <td>{{teacher.qualifications|upper}}</td>
+                        <td>
+                            <a href="{% url "corresponding_students" teacher.id %}" class="bg-blue-700 hover:bg-blue-800 py-1 px-4 rounded">View students</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -30,18 +40,18 @@
             <thead class="h-8 w-full text-left text-gray-400 bg-gray-800">
                 <tr>
                     <th class="pl-4">Student Name</th>
-                    <th>Email</th>
                     <th>Parent Name</th>
-                    <th>Parent Email</th>
+                    <th>Corresponding Teachers</th>
                 </tr>
             </thead>
             <tbody class="w-full leading-none text-white bg-gray-600 sm:text-sm md:text-md">
-                {% for students in students %}
+                {% for student in students %}
                     <tr class="h-14 w-full border-t-8 border-t border-gray-700">
-                        <td class="pl-4">{{students.name|capfirst}}</td>
-                        <td>{{students.email}}</td>
-                        <td>{{students.parent_name|capfirst}}</td>
-                        <td>{{students.parent_email|capfirst}}</td>
+                        <td class="pl-4">{{student.name|capfirst}}</td>
+                        <td>{{student.parent_name|capfirst}}</td>
+                        <td>
+                            <a href="{% url "corresponding_teachers" student.id %}" class="bg-blue-700 hover:bg-blue-800 py-1 px-4 rounded">View teachers</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

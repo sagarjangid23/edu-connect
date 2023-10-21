@@ -6,12 +6,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>{% block title %}Edu Connects{% endblock %}</title>
 </head>
-<body class="font-mono text-white bg-gray-700">
+<body class="font-mono text-white bg-gray-800">
     <header class="bg-gray-900 py-4 px-2 space-y-4">
         <a class="text-5xl font-bold text-red-600" href="{% url "home" %}">Edu Connects</a>
         <div class="flex items-center space-x-2 text-gray-100">
-            <a href="{% url "teachers" %}" class="bg-blue-700 hover:bg-blue-800 py-0.5 px-2 rounded">Teacher list</a>
-            <a href="{% url "students" %}" class="bg-blue-700 hover:bg-blue-800 py-0.5 px-2 rounded">Student list</a>
+            <a href="{% url "teachers" %}" class="bg-blue-700 hover:bg-blue-800 py-0.5 px-2 rounded">Teachers</a>
+            <a href="{% url "students" %}" class="bg-blue-700 hover:bg-blue-800 py-0.5 px-2 rounded">Students</a>
             <a href="{% url "generate_certificate" %}" class="bg-yellow-700 hover:bg-yellow-800 py-0.5 px-2 rounded">Download certificate</a>
             <a href="{% url "verify_certificate" %}" class="bg-orange-700 hover:bg-orange-800 py-0.5 px-2 rounded">Verify certificate</a>
         </div>
