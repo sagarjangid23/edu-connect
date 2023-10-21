@@ -39,16 +39,16 @@ def corresponding_students(request, teacher_id):
         return render(request, "corresponding_students.html", {"students": students})
     else:
         messages.error(request, "No corresponding students for this teacher.")
-        return redirect('teachers')
+        return redirect("teachers")
 
 
 def corresponding_teachers(request, student_id):
     teachers = Student.objects.filter(id=student_id).first().teachers.all()
-    
+
     if teachers:
         return render(request, "corresponding_teachers.html", {"teachers": teachers})
     else:
-        return redirect('students')
+        return redirect("students")
 
 
 def generate_pdf(data):
